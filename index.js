@@ -48,12 +48,12 @@ async function run() {
             res.send(result);
         })
 
-        // // Save a book data from db
-        // app.post('/book', async (req, res) => {
-        //     const bookData = req.body
-        //     const result = await bookingsCollection.insertOne(bookData)
-        //     res.send(result);
-        // })
+        // Save a book data from db
+        app.post('/book', async (req, res) => {
+            const bookData = req.body
+            const result = await bookingsCollection.insertOne(bookData)
+            res.send(result);
+        })
 
         // // get all jobs posted by a specific user
         // app.get('/book/:email', async (req, res) => {
