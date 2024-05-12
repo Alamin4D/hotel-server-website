@@ -34,11 +34,11 @@ async function run() {
         const roomsCollection = client.db('kinsley').collection('rooms')
         const bookingsCollection = client.db('kinsley').collection('bookings')
 
-        // // Get all rooms data from db
-        // app.get('/rooms', async (req, res) => {
-        //     const result = await roomsCollection.find().toArray()
-        //     res.send(result);
-        // })
+        // Get all rooms data from db
+        app.get('/rooms', async (req, res) => {
+            const result = await roomsCollection.find().toArray()
+            res.send(result);
+        })
 
         // // Get a single room data from db using room id
         // app.get('/room/:id', async (req, res) => {
