@@ -55,13 +55,13 @@ async function run() {
             res.send(result);
         })
 
-        // // get all jobs posted by a specific user
-        // app.get('/book/:email', async (req, res) => {
-        //     const email = req.params.email
-        //     const query = { email: email }
-        //     const result = await bookingsCollection.find(query).toArray()
-        //     res.send(result);
-        // })
+        // get all books posted by a specific user
+        app.get('/book/:email', async (req, res) => {
+            const email = req.params.email
+            const query = { email: email }
+            const result = await bookingsCollection.find(query).toArray()
+            res.send(result);
+        })
 
         // // delete a book data from db
         // app.delete('/book/:id', async (req, res) => {
