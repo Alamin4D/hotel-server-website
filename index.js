@@ -40,13 +40,13 @@ async function run() {
             res.send(result);
         })
 
-        // // Get a single room data from db using room id
-        // app.get('/room/:id', async (req, res) => {
-        //     const id = req.params.id
-        //     const query = { _id: new ObjectId(id) }
-        //     const result = await roomsCollection.findOne(query)
-        //     res.send(result);
-        // })
+        // Get a single room data from db using room id
+        app.get('/room/:id', async (req, res) => {
+            const id = req.params.id
+            const query = { _id: new ObjectId(id) }
+            const result = await roomsCollection.findOne(query)
+            res.send(result);
+        })
 
         // // Save a book data from db
         // app.post('/book', async (req, res) => {
