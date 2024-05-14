@@ -50,11 +50,11 @@ async function run() {
 
 
         // Save a book data from db
-        app.post('/book', async (req, res) => {
-            const bookData = req.body
-            const result = await bookingsCollection.insertOne(bookData)
-            res.send(result);
-        })
+        // app.post('/book', async (req, res) => {
+        //     const bookData = req.body
+        //     const result = await bookingsCollection.insertOne(bookData)
+        //     res.send(result);
+        // })
 
         // get all books posted by a specific user
         app.get('/book/:email', async (req, res) => {
