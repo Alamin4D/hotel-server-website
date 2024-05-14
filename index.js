@@ -48,6 +48,7 @@ async function run() {
             res.send(result);
         })
 
+
         // Save a book data from db
         app.post('/book', async (req, res) => {
             const bookData = req.body
@@ -63,13 +64,28 @@ async function run() {
             res.send(result);
         })
 
-        // // delete a book data from db
-        // app.delete('/book/:id', async (req, res) => {
-        //     const id = req.params.id
-        //     const query = { _id: new ObjectId(id) }
-        //     const result = await bookingsCollection.deleteOne(query)
-        //     res.send(result)
-        // })
+        app.get('/books/:id', async (req, res) => {
+            const id = req.params.id
+            const query = { _id: new ObjectId(id) }
+            const result = await bookingsCollection.findOne(query)
+            res.send(result);
+            console.log(result)
+        })
+
+        // update a job in db
+        app.put('/book/:id', async (req, res) => {
+            const id = req.params.id
+            const BookData = req.body
+            const query = { _id: new ObjectId(id) }
+            const options = { upsert: true }
+            const updateDoc = {
+                $set: {
+                    ...BookData,
+                },
+            }
+            const result = await bookingsCollection.updateOne(query, updateDoc, options)
+            res.send(result)
+        })
 
 
         // Send a ping to confirm a successful connection
