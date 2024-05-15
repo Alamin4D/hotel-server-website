@@ -9,7 +9,7 @@ const app = express()
 // middleware
 const corsOptions = {
     origin: [
-        'http://localhost:5173', 'http://localhost:5174'],
+        'http://localhost:5173', 'http://localhost:5174', 'https://6644de6183277231eb2e0407--euphonious-crisp-0017ec.netlify.app'],
     credentials: true,
     optionSuccessStatus: 200,
 }
@@ -33,6 +33,7 @@ async function run() {
     try {
         const roomsCollection = client.db('kinsley').collection('rooms')
         const bookingsCollection = client.db('kinsley').collection('bookings')
+        const reviewCollection = client.db('kinsley').collection('review')
 
         // Get all rooms data from db
         app.get('/rooms', async (req, res) => {
@@ -50,11 +51,11 @@ async function run() {
 
 
         // Save a book data from db
-        // app.post('/book', async (req, res) => {
-        //     const bookData = req.body
-        //     const result = await bookingsCollection.insertOne(bookData)
-        //     res.send(result);
-        // })
+        app.post('/book', async (req, res) => {
+            const bookData = req.body
+            const result = await bookingsCollection.insertOne(bookData)
+            res.send(result);
+        })
 
         // get all books posted by a specific user
         app.get('/book/:email', async (req, res) => {
@@ -72,7 +73,7 @@ async function run() {
             console.log(result)
         })
 
-        // update a job in db
+        // update a book in db
         app.put('/book/:id', async (req, res) => {
             const id = req.params.id
             const BookData = req.body
@@ -87,9 +88,28 @@ async function run() {
             res.send(result)
         })
 
+        app.delete('/book/:id', async(req, res) => {
+            const id = req.params.id
+            const query = { _id: new ObjectId(id)}
+            const result = await bookingsCollection.deleteOne(query)
+            res.send(result);
+        })
+
+        //Save a review data from db
+        app.post('/review', async (req, res) => {
+            const reviewData = req.body
+            const result = await reviewCollection.insertOne(reviewData)
+            res.send(result);
+        })
+
+        app.get('/reviews', async (req, res) => {
+            const result = await reviewCollection.find().sort({ timestamp: -1 }).toArray()
+            res.send(result);
+        })
+
 
         // Send a ping to confirm a successful connection
-        await client.db("admin").command({ ping: 1 });
+        // await client.db("admin").command({ ping: 1 });
         console.log("Pinged your deployment. You successfully connected to MongoDB!");
     } finally {
         // Ensures that the client will close when you finish/error
